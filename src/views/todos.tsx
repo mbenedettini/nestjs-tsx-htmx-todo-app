@@ -1,7 +1,7 @@
 import type { Todo } from "@/todos/todos.service";
 import Modal from "@/views/components/modal";
 
-function TodoRow({ todo }: { todo: Todo }) {
+export function TodoRow({ todo }: { todo: Todo }) {
   return (
     <tr id={`todo-row-${todo.id}`}>
       <td safe class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{todo.title}</td>
@@ -26,15 +26,7 @@ function TodoRow({ todo }: { todo: Todo }) {
             </button>
           }
           size="lg"
-          onConfirm={`editTodo('${todo.id}', $refs.editTitleInput.value)`}
-          x-init={`$watch('isModalOpen', value => {
-            if (value) {
-              $nextTick(() => {
-                $refs.editTitleInput.value = ${JSON.stringify(todo.title)};
-                $refs.editTitleInput.focus();
-              })
-            }
-          })`}
+          onConfirm={`editTodo('${todo.id}', document.getElementById('edit-title-${todo.id}').value)`}
         >
           <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
@@ -48,7 +40,7 @@ function TodoRow({ todo }: { todo: Todo }) {
               <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-4">
                   <label
-                    for="title"
+                    for={`edit-title-${todo.id}`}
                     class="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Todo title
@@ -56,10 +48,10 @@ function TodoRow({ todo }: { todo: Todo }) {
                   <div class="mt-2">
                     <input
                       type="text"
-                      id="title"
+                      id={`edit-title-${todo.id}`}
                       name="title"
                       required
-                      x-ref="editTitleInput"
+                      value={todo.title}
                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -71,14 +63,14 @@ function TodoRow({ todo }: { todo: Todo }) {
           <div class="mt-6 flex items-center justify-end gap-x-6">
             <button
               type="button"
-              x-on:click="closeModal()"
+              x-on:click="$dispatch('close')"
               class="text-sm font-semibold leading-6 text-gray-900"
             >
               Cancel
             </button>
             <button
               type="button"
-              x-on:click="closeModal(true)"
+              x-on:click="$dispatch('confirm')"
               class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Save
@@ -111,6 +103,3 @@ export default function TodosTable({ todos }: { todos: Todo[] }) {
     </table>
   );
 }
-
-// Export the TodoRow component separately
-export { TodoRow };

@@ -25,9 +25,15 @@ export default function Index({ todos }: { todos: Todo[] }) {
         },
         editTodo(id, title) {
           htmx.ajax('PUT', '/todos/' + id, {
-            target: '#todos-table',
+            target: '#todo-row-' + id,
             swap: 'outerHTML',
             values: { title: title }
+          });
+        },
+        toggleTodo(id) {
+          htmx.ajax('PUT', '/todos/' + id + '/toggle', {
+            target: '#todo-row-' + id,
+            swap: 'outerHTML'
           });
         }
       }`}

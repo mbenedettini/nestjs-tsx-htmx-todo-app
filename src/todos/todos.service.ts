@@ -27,7 +27,11 @@ export class TodosService {
   }
 
   async update(id: string, todoArgs: z.infer<typeof upsertTodoSchema>) {
-    return this.db.update(todos).set(todoArgs).where(eq(todos.id, id));
+    const updatedTodo = await this.db.update(todos)
+      .set(todoArgs)
+      .where(eq(todos.id, id))
+      .returning();
+    return updatedTodo[0];
   }
 
   async toggle(id: string) {

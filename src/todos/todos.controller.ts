@@ -25,14 +25,13 @@ export class TodosController {
   }
 
   @Put("/:id")
-  @Render("todos")
+  @Render("todo-row")
   async update(
     @Param("id") id: string,
     @Body(new ZodValidationPipe(upsertTodoSchema)) todoData: z.infer<typeof upsertTodoSchema>
   ) {
     const todo = await this.todosService.update(id, todoData);
-    const todos = await this.todosService.getTodos();
-    return { todos };
+    return { todo };
   }
 
   @Put("/:id/toggle")
