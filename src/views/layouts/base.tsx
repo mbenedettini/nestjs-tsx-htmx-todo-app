@@ -12,8 +12,8 @@ export default function BaseLayout({ children }: Html.PropsWithChildren) {
             content="width=device-width, initial-scale=1.0"
           />
           <title>Todo</title>
-          <script src="https://unpkg.com/htmx.org@1.9.10" />
-          <script src="https://unpkg.com/hyperscript.org@0.9.12" />
+          <script src="/htmx.org/dist/htmx.min.js" />
+          <script defer src="/alpinejs/dist/cdn.min.js" />
           <link
             rel="stylesheet"
             type="text/css"
@@ -23,10 +23,6 @@ export default function BaseLayout({ children }: Html.PropsWithChildren) {
             rel="stylesheet"
             type="text/css"
             href="/assets/dist/index.css"
-          />
-          <script
-            src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-            defer
           />
         </head>
         <body class="h-full bg-gray-100">{children}</body>
