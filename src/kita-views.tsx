@@ -10,6 +10,41 @@ import { resolve } from "node:path";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
+/**
+ * Interceptor and decorator to set the default layout for a controller.
+ * @param layout - The name of the layout to use (omitting .tsx extension).
+ * @returns The NestJS interceptor.
+ *
+ * If hx-request is detected it will use layouts/partial so make sure to
+ * include the partial layout in your layouts directory.
+ *
+ * Usage:
+ *
+ * This will make all routes in the `TodosController` use the `layouts/base`
+ * layout unless otherwise specified returning the layout name:
+ *
+ * ```
+ * @Controller('todos')
+ * @DefaultLayout("layouts/base")
+ * export class TodosController {
+ *   constructor(private readonly todosService: TodosService) {}
+ *
+ *   @Get("/")
+ *   @Render("index")
+ *   index() {
+ *      return { title: "Home - using layouts/base" };
+ *   }
+ *
+ *   @Get("/")
+ *   @Render("users")
+ *   index() {
+ *      return { layout: "layouts/auth", title: "Users - using layouts/auth" };
+ *   }
+ * }
+ * ```
+ *
+
+*/
 @Injectable()
 class DefaultLayoutInterceptor implements NestInterceptor {
   constructor(private readonly defaultLayout: string) {}
