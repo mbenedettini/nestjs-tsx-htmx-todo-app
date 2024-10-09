@@ -35,7 +35,7 @@ export default function Modal({
       }`}
       {...{
         "x-on:keydown.escape.window": "closeModal()",
-        "x-on:keydown.enter.window": `if(${isModalOpenVariableName}) closeModal(true)`,
+        "x-on:close-modal.window": `if (${isModalOpenVariableName}) closeModal()`,
       }}
       {...props}
     >

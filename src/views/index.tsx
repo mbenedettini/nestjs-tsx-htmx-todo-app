@@ -16,13 +16,6 @@ export default function Index({ todos }: { todos: Todo[] }) {
     <div
       class="px-4 sm:px-6 lg:px-8"
       x-data={`{
-        addTodo(title) {
-          htmx.ajax('POST', '/todos', {
-            target: '#todos-table',
-            swap: 'outerHTML',
-            values: { title: title }
-          });
-        },
         editTodo(id, title) {
           htmx.ajax('PUT', '/todos/' + id, {
             target: '#todo-row-' + id,
@@ -35,6 +28,13 @@ export default function Index({ todos }: { todos: Todo[] }) {
             target: '#todo-row-' + id,
             swap: 'outerHTML'
           });
+        },
+        validateForm() {
+          return this.$refs.todoForm.checkValidity();
+        },
+        closeModalAfterSubmit() {
+          console.log("FIRING CLOSE MODAL");
+          this.$dispatch('close-modal');
         }
       }`}
     >
@@ -49,14 +49,20 @@ export default function Index({ todos }: { todos: Todo[] }) {
           <Modal
             activator={addTodoActivator}
             size="lg"
-            onConfirm="addTodo($refs.titleInput.value)"
             x-init="$watch('isModalOpen', value => {
               if (value) {
                 $nextTick(() => $refs.titleInput.focus())
               }
             })"
           >
-            <div class="space-y-12">
+            <form
+              x-ref="todoForm"
+              class="space-y-12"
+              hx-post="/todos"
+              hx-target="#todos-table"
+              hx-swap="outerHTML"
+              {...{ "@htmx:after-request": "closeModalAfterSubmit()" }}
+            >
               <div class="border-b border-gray-900/10 pb-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">
                   Add New Todo
@@ -86,24 +92,23 @@ export default function Index({ todos }: { todos: Todo[] }) {
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mt-6 flex items-center justify-end gap-x-6">
-              <button
-                type="button"
-                x-on:click="closeModal()"
-                class="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                x-on:click="closeModal(true)"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Add
-              </button>
-            </div>
+              <div class="mt-6 flex items-center justify-end gap-x-6">
+                <button
+                  type="button"
+                  x-on:click="closeModal()"
+                  class="text-sm font-semibold leading-6 text-gray-900"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Add
+                </button>
+              </div>
+            </form>
           </Modal>
         </div>
       </div>
