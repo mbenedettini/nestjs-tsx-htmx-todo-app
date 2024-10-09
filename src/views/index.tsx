@@ -29,9 +29,6 @@ export default function Index({ todos }: { todos: Todo[] }) {
             swap: 'outerHTML'
           });
         },
-        validateForm() {
-          return this.$refs.todoForm.checkValidity();
-        },
         closeModalAfterSubmit() {
           console.log("FIRING CLOSE MODAL");
           this.$dispatch('close-modal');
@@ -56,7 +53,6 @@ export default function Index({ todos }: { todos: Todo[] }) {
             })"
           >
             <form
-              x-ref="todoForm"
               class="space-y-12"
               hx-post="/todos"
               hx-target="#todos-table"
