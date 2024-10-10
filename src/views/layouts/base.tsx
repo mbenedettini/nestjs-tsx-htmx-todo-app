@@ -25,7 +25,7 @@ export default function BaseLayout({ children }: Html.PropsWithChildren) {
             href="/assets/dist/index.css"
           />
         </head>
-        <body class="h-full bg-gray-100">{children}</body>
+        <body class="h-full bg-gray-100 p-16">{children}</body>
       </html>
     </>
   );
