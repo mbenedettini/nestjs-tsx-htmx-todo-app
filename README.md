@@ -1,13 +1,14 @@
 # NestJS + Server-Side TSX + HTMX Todo App
 
-This is a simple todo app built with NestJS, Server-Side TSX, and HTMX that works
+This is a simple todo app built with NestJS, server-side TSX, and HTMX that works
 as an example or boilerplate for building full stack web apps using TypeScript
-on the server side.
+with all the ease of JSX to reutilize components on server side and
+the mentioned HTMX + AlpineJS on the frontend.
 
 ## Features
 
 Backend:
-- NestJS
+- [NestJS](https://nestjs.com/)
 - Server-Side TSX powered by [KitaJS](https://github.com/kitajs/html). If you are only
 interested in this and you have an Express.js app you can just take `src/kita-views.tsx`
 and add it to your project (make sure to check [KitaJS documentation to see how to setup
