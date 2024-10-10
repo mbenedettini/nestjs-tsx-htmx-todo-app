@@ -10,7 +10,8 @@ Backend:
 - NestJS
 - Server-Side TSX powered by [KitaJS](https://github.com/kitajs/html). If you are only
 interested in this and you have an Express.js app you can just take `src/kita-views.tsx`
-and add it to your project.
+and add it to your project (make sure to check [KitaJS documentation to see how to setup
+the project](https://github.com/kitajs/html/tree/master/packages/html#installing)).
 - Drizzle ORM + SQLite
 - Zod for requests validation (see `src/zod-nestjs.ts`)
 - A [Nix Flake](https://nixos.wiki/wiki/Flakes) for development and building the project
