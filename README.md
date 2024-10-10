@@ -30,7 +30,7 @@ Others:
 1) Clone this repo and use your favorite tool (NVM or whichever else) to have ready Node >= 20
 and PNPM >= 9.
 
-If you feel enthusiastic about Nix, you can install it following instructions [here](https://nix.dev/install-nix) and then run `nix develop` to enter a shell with the right Node version and PNPM.
+  If you feel enthusiastic about Nix, you can install it following instructions [here](https://nix.dev/install-nix) and then run `nix develop` to enter a shell with the right Node version and PNPM.
 
 2) Run `pnpm install` to install the dependencies.
 
