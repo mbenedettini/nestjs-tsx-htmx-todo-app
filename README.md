@@ -6,21 +6,35 @@ on the server side.
 
 ## Features
 
+Backend:
 - NestJS
-- HTMX + AlpineJS + TailwindCSS
-- Add/Edit Todos using a Modal
 - Server-Side TSX powered by [KitaJS](https://github.com/kitajs/html). If you are only
 interested in this and you have an Express.js app you can just take `src/kita-views.tsx`
 and add it to your project.
 - Drizzle ORM + SQLite
 - Zod for requests validation (see `src/zod-nestjs.ts`)
 - A [Nix Flake](https://nixos.wiki/wiki/Flakes) for development and building the project
+
+Frontend:
+- HTMX + AlpineJS + TailwindCSS
+- Add/Edit Todos using a Modal
+
+Others:
 - Linting and Formatting with [Biome](https://github.com/biomejs/biome)
 - Optimized multi-stage Dockerfile (TODO)
 
 ## Usage
 
-TODO
+1) Clone this repo and use your favorite tool (NVM or whichever else) to have ready Node >= 20
+and PNPM >= 9.
+
+If you feel enthusiastic about Nix, you can install it following instructions [here](https://nix.dev/install-nix) and then run `nix develop` to enter a shell with the right Node version and PNPM.
+
+2) Run `pnpm install` to install the dependencies.
+
+3) Run `pnpm run migrations:migrate` to run migrations and create the database.
+
+4) Run `pnpm run start:dev` to start the development server and go to `http://localhost:3100`.
 
 ## License
 
