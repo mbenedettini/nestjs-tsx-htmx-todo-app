@@ -12,13 +12,13 @@ Backend:
 interested in this and you have an Express.js app you can just take `src/kita-views.tsx`
 and add it to your project (make sure to check [KitaJS documentation to see how to setup
 the project](https://github.com/kitajs/html/tree/master/packages/html#installing)).
-- Drizzle ORM + SQLite
-- Zod for requests validation (see `src/zod-nestjs.ts`)
+- [Drizzle ORM](https://orm.drizzle.team/) + SQLite
+- [Zod](https://github.com/colinhacks/zod) for requests validation (see `src/zod-nestjs.ts` for the NestJS integration)
 - A [Nix Flake](https://nixos.wiki/wiki/Flakes) for development and building the project
 
 Frontend:
-- HTMX + AlpineJS + TailwindCSS
-- Add/Edit Todos using a Modal
+- [HTMX](https://htmx.org/) + [AlpineJS](https://alpinejs.dev/) + [TailwindCSS](https://tailwindcss.com/)
+- Add/Edit Todos using a Modal dialog.
 
 Others:
 - Linting and Formatting with [Biome](https://github.com/biomejs/biome)
