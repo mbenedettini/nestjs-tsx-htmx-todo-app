@@ -1,4 +1,4 @@
-# NestJS + Server-Side TSX + HTMX Boilerplate / Todo App
+# NestJS + Server-Side TSX + HTMX Todo App
 
 This is a simple todo app built with NestJS, Server-Side TSX, and HTMX that works
 as an example or boilerplate for building full stack web apps using TypeScript
