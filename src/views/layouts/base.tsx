@@ -11,7 +11,7 @@ export default function BaseLayout({ children }: Html.PropsWithChildren) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <title>Todo</title>
+          <title>My Todos</title>
           <script src="/htmx.org/dist/htmx.min.js" />
           <script defer src="/alpinejs/dist/cdn.min.js" />
           <link
