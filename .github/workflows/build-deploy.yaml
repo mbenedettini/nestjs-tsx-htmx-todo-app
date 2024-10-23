@@ -53,8 +53,9 @@ jobs:
       run: nix profile install nixpkgs#skopeo
 
     - name: 'Push Docker image to private registry'
-      run: skopeo --insecure-policy copy tarball:result \
-        docker://${{ vars.CLOUDFLARE_REGISTRY_URL }}/todo-app:${{ env.SHA }}
+      run: |
+        skopeo --insecure-policy copy tarball:result \
+          docker://${{ vars.CLOUDFLARE_REGISTRY_URL }}/todo-app:${{ env.SHA }}
 
 
     # - name: Deploy
