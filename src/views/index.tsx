@@ -26,7 +26,7 @@ export default function Index({ todos }: { todos: Todo[] }) {
         <div class="sm:flex-auto">
           <h1 class="text-base font-semibold leading-6 text-gray-900">Todos</h1>
           <p class="mt-2 text-sm text-gray-700">
-            A list of all your todos including their title, status, and creation date.
+            A list of all your todos including their title, status, creation and last update dates.
           </p>
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
