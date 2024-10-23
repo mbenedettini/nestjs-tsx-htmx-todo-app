@@ -13,10 +13,12 @@
     "./assets"
   ],
   "scripts": {
-    "build": "nest build",
+    "build": "pnpm run nest:build && pnpm run tailwind:build",
+    "nest:build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "tailwind:dev": "tailwindcss -i ./assets/index.css -o ./assets/dist/index.css --watch",
+    "tailwind:build": "tailwindcss -i ./assets/index.css -o ./assets/dist/index.css",
     "start:dev": "concurrently -n tailwind,nest \"pnpm run tailwind:dev\" \"pnpm run nest:dev\"",
     "nest:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

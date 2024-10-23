@@ -38,6 +38,24 @@ and PNPM >= 9.
 
 4) Run `pnpm run start:dev` to start the development server and go to `http://localhost:3100`.
 
+## Build the Docker image
+
+Cross platform building is not easy on Nix. If you are on MacOS or don't want to install Nix, it's just easier to run `nix build` inside a Linux container:
+
+```sh
+docker run --platform linux/amd64 -v .:/src -ti nixos/nix:2.24.9 bash -c "cd /src && nix build --extra-experimental-features nix-command --extra-experimental-features flakes --no-filter-syscalls --impure .#docker-image && rm todo-app.tar.gz && cp -L result todo-app.tar.gz" && docker load < todo-app.tar.gz
+```
+
+Then just run the image:
+
+```sh
+docker run --init -e PORT=3200 -p 3200:3200 todo-app:latest
+```
+
+and head to `http://localhost:3200`.
+
+If you are on Linux, you can just run `nix build .#docker-image` and then `docker load -i result` and then `docker run --init -e PORT=3200 -p 3200:3200 todo-app:latest`.
+
 ## License
 
 MIT

@@ -42,11 +42,11 @@
             hash =
               let
                 envHash = builtins.getEnv "PNPM_HASH";
-                # CI value:
-                defaultHash = "sha256-FAt2ZKlM5ZGK3jQgVV0YOXhf0wm+XNogR6AA11rOTps=";
+                # linux/amd64 value
+                defaultHash = "sha256-FkKSDmoPJJyx35jsOpSzQ10XDyLMHXxf80mQqhsfE2o=";
               in
               if envHash != "" then envHash else defaultHash;
-        };
+          };
 
           buildPhase = ''
             pnpm run build
@@ -57,10 +57,10 @@
           installPhase = ''
             mkdir -p $out
             cp -r node_modules $out/node_modules
-            # cp -r lib $out/lib
-            # cp -r web $out/web
-            # cp -r schemas $out/schemas
             cp package.json $out/
+            cp -r dist $out/dist
+            cp -r src/db/migrations $out/dist/src/db/migrations
+            cp -R assets $out/assets
           '';
         });
 
@@ -72,6 +72,33 @@
           ];
           pathsToLink = [ "/bin" ];
         };
+
+        docker-image = pkgs.dockerTools.buildLayeredImage {
+          name = "todo-app";
+          tag = "latest";
+          contents = [
+            pkgs.nodejs_20
+            pkgs.pnpm
+            self.packages.${pkgs.system}.app
+            pkgs.bash
+            pkgs.coreutils-full
+          ];
+          config = {
+            Cmd = [
+              "${pkgs.bash}/bin/bash"
+              "-c"
+              ''
+                ${pkgs.nodejs_20}/bin/node ${self.packages.${pkgs.system}.app}/dist/src/db/migrate.js && \
+                exec ${pkgs.nodejs_20}/bin/node ${self.packages.${pkgs.system}.app}/dist/src/main.js
+              ''
+            ];
+            WorkingDir = "/app";
+            Env = [
+              "NODE_ENV=production"
+            ];
+          };
+        };
+
       });
 
 
@@ -81,5 +108,6 @@
           pnpm_9
         ];
       });
+
     };
 }
