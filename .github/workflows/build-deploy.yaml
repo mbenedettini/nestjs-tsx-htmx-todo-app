@@ -49,10 +49,12 @@ jobs:
     - name: Build and push Docker image
       run: nix build --extra-experimental-features nix-command --extra-experimental-features flakes --no-filter-syscalls .#docker-image
 
+    - name: Install skopeo
+      run: nix profile install nixpkgs#skopeo
+
     - name: 'Push Docker image to private registry'
-      run: |
-        nix profile install nixpkgs#skopeo
-        skopeo --insecure-policy copy tarball:result docker://${{ vars.CLOUDFLARE_REGISTRY_URL }}/todo-app:${{ env.SHA }}
+      run: skopeo --insecure-policy copy tarball:result \
+        docker://${{ vars.CLOUDFLARE_REGISTRY_URL }}/todo-app:${{ env.SHA }}
 
 
     # - name: Deploy
