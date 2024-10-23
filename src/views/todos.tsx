@@ -30,14 +30,16 @@ export function TodoRow({ todo }: { todo: Todo }) {
             </button>
           }
           size="lg"
+          id={`edit-${todo.id}`}
         >
           <TodoForm
             todo={todo}
             action={`/todos/${todo.id}`}
             method="PUT"
-            onSubmit="closeModalAfterSubmit()"
+            onSubmit={`$dispatch('close-modal:edit-${todo.id}')`}
             submitLabel="Save"
             target="closest tr"
+            id={`edit-${todo.id}`}
           />
         </Modal>
       </td>

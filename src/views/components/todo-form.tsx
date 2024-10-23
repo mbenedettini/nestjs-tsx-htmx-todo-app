@@ -7,9 +7,10 @@ interface TodoFormProps {
   onSubmit: string;
   submitLabel: string;
   target: string;
+  id?: string;
 }
 
-export default function TodoForm({ todo, action, method, onSubmit, submitLabel, target }: TodoFormProps) {
+export default function TodoForm({ todo, action, method, onSubmit, submitLabel, target, id = "" }: TodoFormProps) {
   const title = todo ? "Edit Todo" : "Add New Todo";
   const description = todo
     ? "Update the title for your todo item."
@@ -21,11 +22,17 @@ export default function TodoForm({ todo, action, method, onSubmit, submitLabel, 
 
   return (
     <form
+      x-data={`{}`}
       class="space-y-12"
       hx-target={target}
       hx-swap="outerHTML"
       {...htmxAttrs}
       {...{ "@htmx:after-request": onSubmit }}
+      {...{
+        ["x-on:modal-close:" + id + ".window"]: "$refs.form.reset();",
+        ["x-on:modal-open:" + id + ".window"]: "$refs.titleInput.focus();"
+      }}
+      x-ref="form"
     >
       <div class="border-b border-gray-900/10 pb-12">
         <h2 class="text-base font-semibold leading-7 text-gray-900">

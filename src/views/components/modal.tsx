@@ -6,6 +6,7 @@ type ModalProps = {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
   onConfirm?: string;
+  id?: string;
 } & Html.PropsWithChildren;
 
 export default function Modal({
@@ -15,6 +16,7 @@ export default function Modal({
   className,
   size = "md",
   onConfirm,
+  id,
   ...props
 }: ModalProps) {
   const sizeClasses = {
@@ -26,16 +28,23 @@ export default function Modal({
 
   return (
     <div
+      x-init={`$watch('isModalOpen', value => {
+        if (value) {
+          $nextTick(() => $dispatch('modal-open:${id}'));
+        }
+      })`}
+
       x-data={`{
         ${isModalOpenVariableName}: false,
         closeModal(confirmed = false) {
           this.${isModalOpenVariableName} = false;
           ${onConfirm ? `if (confirmed) { ${onConfirm} }` : ""}
+          $dispatch('modal-close:${id}');
         }
       }`}
       {...{
         "x-on:keydown.escape.window": "closeModal()",
-        "x-on:close-modal.window": `if (${isModalOpenVariableName}) closeModal()`,
+        [`x-on:close-modal:${id}.window`]: `if (${isModalOpenVariableName}) closeModal()`,
       }}
       {...props}
     >
@@ -51,13 +60,13 @@ export default function Modal({
       >
         <div
           class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          x-on:click="closeModal()"
+          x-on:click="console.log('click'); closeModal()"
         />
         <div class="fixed inset-0 z-100 w-screen overflow-y-auto">
           <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <div
               class={`relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full ${sizeClasses[size]} sm:p-6`}
-              {...{ "x-on:click.away": "closeModal()" }}
+              {...{ "x-on:click.away": "console.log('click.away'); closeModal()" }}
             >
               <div class="max-h-[80vh] overflow-y-auto">{children}</div>
             </div>

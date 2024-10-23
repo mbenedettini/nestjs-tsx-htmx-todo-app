@@ -16,11 +16,7 @@ export default function Index({ todos }: { todos: Todo[] }) {
   return (
     <div
       class="px-4 sm:px-6 lg:px-8"
-      x-data={`{
-        closeModalAfterSubmit() {
-          this.$dispatch('close-modal');
-        }
-      }`}
+      x-data={`{}`}
     >
       <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
@@ -33,18 +29,15 @@ export default function Index({ todos }: { todos: Todo[] }) {
           <Modal
             activator={addTodoActivator}
             size="lg"
-            x-init="$watch('isModalOpen', value => {
-              if (value) {
-                $nextTick(() => $refs.titleInput.focus())
-              }
-            })"
+            id="add"
           >
             <TodoForm
               action="/todos"
               method="POST"
-              onSubmit="closeModalAfterSubmit()"
+              onSubmit="$dispatch('close-modal:add')"
               submitLabel="Add"
               target="#todos-table"
+              id="add"
             />
           </Modal>
         </div>
