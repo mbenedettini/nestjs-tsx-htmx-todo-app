@@ -5,6 +5,11 @@ as an example or boilerplate for building full stack web apps using TypeScript
 with all the ease of JSX to reutilize components on server side and
 the mentioned HTMX + AlpineJS on the frontend.
 
+Features a modal dialog to show the todo form elegantly resolved with AlpineJS events.
+
+![Kapture 2024-10-23 at 18 45 39 ii](https://github.com/user-attachments/assets/7a029537-cb6b-480a-9dea-e2837b5623e0)
+
+
 ## Features
 
 Backend:
@@ -15,7 +20,7 @@ and add it to your project (make sure to check [KitaJS documentation to see how 
 the project](https://github.com/kitajs/html/tree/master/packages/html#installing)).
 - [Drizzle ORM](https://orm.drizzle.team/) + SQLite
 - [Zod](https://github.com/colinhacks/zod) for requests validation (see `src/zod-nestjs.ts` for the NestJS integration)
-- A [Nix Flake](https://nixos.wiki/wiki/Flakes) for development and building the project
+- A [Nix Flake](https://nixos.wiki/wiki/Flakes) for development and building the project, including an optimized Docker image.
 
 Frontend:
 - [HTMX](https://htmx.org/) + [AlpineJS](https://alpinejs.dev/) + [TailwindCSS](https://tailwindcss.com/)
@@ -23,7 +28,6 @@ Frontend:
 
 Others:
 - Linting and Formatting with [Biome](https://github.com/biomejs/biome)
-- Optimized multi-stage Dockerfile (TODO)
 
 ## Usage
 
