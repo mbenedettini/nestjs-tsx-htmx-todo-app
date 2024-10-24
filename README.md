@@ -14,7 +14,7 @@ Features a modal dialog to show the todo form elegantly resolved with AlpineJS e
 
 Backend:
 - [NestJS](https://nestjs.com/)
-- Server-Side TSX powered by [KitaJS](https://github.com/kitajs/html). If you are only
+- Server side TSX components powered by [KitaJS](https://github.com/kitajs/html). If you are only
 interested in this and you have an Express.js app you can just take `src/kita-views.tsx`
 and add it to your project (make sure to check [KitaJS documentation to see how to setup
 the project](https://github.com/kitajs/html/tree/master/packages/html#installing)).
