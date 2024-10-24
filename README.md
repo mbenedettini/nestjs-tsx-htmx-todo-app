@@ -18,6 +18,7 @@ Backend:
 interested in this and you have an Express.js app you can just take `src/kita-views.tsx`
 and add it to your project (make sure to check [KitaJS documentation to see how to setup
 the project](https://github.com/kitajs/html/tree/master/packages/html#installing)).
+- Server side validation with [Zod](https://zod.dev/) (there's a `ZodValidationPipe` at https://github.com/mbenedettini/nestjs-tsx-htmx-todo-app/blob/main/src/zod-nestjs.ts which for example is used by the Todos controller to validate todos upserts defined at https://github.com/mbenedettini/nestjs-tsx-htmx-todo-app/blob/main/src/todos/todos.service.ts#L8)
 - [Drizzle ORM](https://orm.drizzle.team/) + SQLite
 - [Zod](https://github.com/colinhacks/zod) for requests validation (see `src/zod-nestjs.ts` for the NestJS integration)
 - A [Nix Flake](https://nixos.wiki/wiki/Flakes) for development and building the project, including an optimized Docker image.
